@@ -1,0 +1,14 @@
+from cli import *
+import json
+
+# Retrieve the interface list in JSON format
+intflist = json.loads(clid('show interface brief'))
+
+# Loop through the interfaces and print those that are 'up'
+i = 0
+while i < len(intflist['TABLE_interface']['ROW_interface']):
+    intf = intflist['TABLE_interface']['ROW_interface'][i]
+    # Check if 'state' key exists in the intf dictionary
+    if 'state' in intf and intf['state'] == 'up':
+        print(intf['interface'])
+    i += 1
